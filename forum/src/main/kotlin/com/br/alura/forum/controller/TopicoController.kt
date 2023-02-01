@@ -6,6 +6,7 @@ import com.br.alura.forum.dto.TopicoUpdateRequest
 import com.br.alura.forum.service.TopicoService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -34,6 +35,7 @@ class TopicoController(private val service: TopicoService) {
     }
 
     @PostMapping
+    @Transactional
     fun cadastrar(@RequestBody @Valid topicoRequest: TopicoRequest, uriBuilder: UriComponentsBuilder):
             ResponseEntity<TopicoResponse> {
         val topico = service.cadastrar(topicoRequest)
@@ -42,6 +44,7 @@ class TopicoController(private val service: TopicoService) {
     }
 
     @PutMapping
+    @Transactional
     fun atualizar(@RequestBody @Valid topico: TopicoUpdateRequest): ResponseEntity<TopicoResponse>{
         val topicoResponse = service.atualizar(topico)
         return ResponseEntity.ok(topicoResponse)
@@ -49,6 +52,7 @@ class TopicoController(private val service: TopicoService) {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun deletar(@PathVariable id: Long){
         service.deletar(id)
     }

@@ -18,8 +18,13 @@ class TopicoService(
     private val notFoundMessage: String = "Tópico não encontrado!"
 ) {
 
-    fun listar(): List<TopicoResponse> {
-        return repository.findAll().stream().map { t ->
+    fun listar(nomeCurso: String?): List<TopicoResponse> {
+
+        val topicos =
+            if (nomeCurso == null) repository.findAll()
+            else repository.findByCursoNome(nomeCurso)
+
+        return topicos.stream().map { t ->
             topicoResponseMapper.map(t)
         }.collect(Collectors.toList())
     }
@@ -55,7 +60,7 @@ class TopicoService(
         topico.mensagem = topicoUpdateRequest.mensagem
 
         return topicoResponseMapper.map(topico)
-}
+    }
 
 //    fun deletar(id: Long) {
 //        val topico = topicos.stream().filter { it.id == id }.findFirst()
@@ -63,8 +68,8 @@ class TopicoService(
 //        topicos = topicos.minus(topico)
 //    }
 
-fun deletar(id: Long) {
-    repository.deleteById(id)
-}
+    fun deletar(id: Long) {
+        repository.deleteById(id)
+    }
 
 }

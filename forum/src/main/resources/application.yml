@@ -5,8 +5,8 @@ spring:
     password: root1234
     schemas:
       - forum
-    # useSSL: false
-    # baseline-on-migrate:
+#     useSSL: false
+#    # baseline-on-migrate:
     enabled: true
     locations: classpath:db/migration
   application:

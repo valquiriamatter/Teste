@@ -1,9 +1,14 @@
 package com.br.alura.forum.controller
 
+import com.br.alura.forum.dto.TopicoPorCategoriaDTO
 import com.br.alura.forum.dto.TopicoRequest
 import com.br.alura.forum.dto.TopicoResponse
 import com.br.alura.forum.dto.TopicoUpdateRequest
 import com.br.alura.forum.service.TopicoService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -17,8 +22,9 @@ import javax.validation.Valid
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
-    fun listar(@RequestParam(required = false) nomeCurso: String?): List<TopicoResponse>{
-        return service.listar(nomeCurso)
+    @Cacheable("topicos")
+    fun listar(@RequestParam(required = false) nomeCurso: String?, paginacao: Pageable): Page<TopicoResponse> {
+        return service.listar(nomeCurso, paginacao)
     }
 
     @GetMapping("/{id}")
@@ -28,6 +34,7 @@ class TopicoController(private val service: TopicoService) {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun cadastrar(@RequestBody @Valid topicoRequest: TopicoRequest, uriBuilder: UriComponentsBuilder):
             ResponseEntity<TopicoResponse> {
         val topico = service.cadastrar(topicoRequest)
@@ -37,6 +44,7 @@ class TopicoController(private val service: TopicoService) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun atualizar(@RequestBody @Valid topico: TopicoUpdateRequest): ResponseEntity<TopicoResponse>{
         val topicoResponse = service.atualizar(topico)
         return ResponseEntity.ok(topicoResponse)
@@ -45,8 +53,14 @@ class TopicoController(private val service: TopicoService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
+    @CacheEvict(value = ["topicos"], allEntries = true)
     fun deletar(@PathVariable id: Long){
         service.deletar(id)
+    }
+
+    @GetMapping("/relatorio")
+    fun relatorio(): List<TopicoPorCategoriaDTO>{
+        return service.relatorio()
     }
 
 }

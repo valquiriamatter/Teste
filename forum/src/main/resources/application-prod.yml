@@ -1,39 +1,84 @@
+#server:
+#  port: 8080
+
 spring:
-  flyway:
-    url: jdbc:mysql://localhost:3306/forum?autoReconnect=true&useSSL=false
-    user: root
-    password: root1234
-    schemas:
-      - forum
-#     useSSL: false
-#    # baseline-on-migrate:
-    enabled: true
-    locations: classpath:db/migration
   application:
     name: forum
+
   datasource:
-    url: jdbc:mysql://localhost:3306/forum?autoReconnect=true&useSSL=false
-    username: root
-    password: root1234
-    platform: Mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
-#    hikari:
-#      maximum-pool-size: 450
-#      minimum-idle: 50
-#      idle-timeout: 3000
+    url: jdbc:mysql://b31h5fvz1xvntm63:mgqr5089n7q1tym9@pk1l4ihepirw9fob.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/u6ht5rrk3z8ohn8b
+    #url: jdbc:mysql://b31h5fvz1xvntm63:mgqr5089n7q1tym9@pk1l4ihepirw9fob.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/u6ht5rrk3z8ohn8b
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: root1234
+#    platform: Mysql
+#    initialization-mode: always
+
+  #  profiles:
+  #    active: dev
+
   jpa:
-    hibernate:
-      ddl-auto: none
+    show-sql: true
     open-in-view: false
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+        ddl-auto: none
+
+  flyway:
+    locations: classpath:db/migration
+    schemas:
+      - u6ht5rrk3z8ohn8b
+    enabled: true
+
+
+#  flyway:
+#    #url: jdbc:mysql://localhost:3306/forum?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+#    url: jdbc:mysql://mysql-db:3306/forum?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+#    user: root
+#    password: root1234
+#    schemas:
+#      - forum
+##     useSSL: false
+##    # baseline-on-migrate:
+#    enabled: true
+#    locations: classpath:db/migration
+
+#  datasource:
+#    #url: jdbc:mysql://localhost:3306/forum?autoReconnect=true&useSSL=false
+#    url: jdbc:mysql://localhost:3306/forum?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+##   url: "jdbc:mysql://mysql-db/<database_name>?createDatabaseIfNotExists=true&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false"
+#
+#    username: root
+#    password: root1234
+#    platform: Mysql
+#    initialization-mode: always
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    tomcat:
+#      test-while-idle: true
+#      validation-query: SELECT 1
+
+
+#    hikari:
+#      maximum-pool-size: 450
+#      minimum-idle: 50
+#      idle-timeout: 3000
+#  jpa:
+#    hibernate:
+##      ddl-auto: none
+#    open-in-view: false
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+#        ddl-auto: none
+
 jwt:
   secret: secreto
-
 
 
 

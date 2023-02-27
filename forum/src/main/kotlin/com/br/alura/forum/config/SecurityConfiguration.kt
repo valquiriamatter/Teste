@@ -28,7 +28,7 @@ class SecurityConfiguration(
         http?.
         csrf()?.disable()?.
         authorizeRequests()?.
-        antMatchers("/topicos")?.hasAuthority("SOMENTE_LEITURA")?. //para acessar precisa ter a authority
+        antMatchers("/topicos")?.hasAuthority("LEITURA_ESCRITA")?. //para acessar precisa ter a authority
         antMatchers(HttpMethod.POST,"/login")?.permitAll()?.anyRequest()?.authenticated()?. //qualquer requesição deve estar autenticado
         and()
         http?.addFilterBefore(

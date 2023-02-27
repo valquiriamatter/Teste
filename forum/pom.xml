@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.6.21</kotlin.version>
-		<start-class>com.br.alura.forum.ForumApplication</start-class>
+<!--		<start-class>com.br.alura.forum.ForumApplication</start-class>-->
 	</properties>
 
 	<dependencies>
@@ -74,6 +74,14 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.11</version>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -154,7 +162,7 @@
 			<id>dev</id>
 			<properties>
 				<activatedProperties>dev</activatedProperties>
-<!--				<spring.boot.mainclass>com.br.alura.forum.ForumApplication</spring.boot.mainclass>-->
+<!--				<spring.boot.mainclass>com.br.alura.forum.ForumApplicationKt</spring.boot.mainclass>-->
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

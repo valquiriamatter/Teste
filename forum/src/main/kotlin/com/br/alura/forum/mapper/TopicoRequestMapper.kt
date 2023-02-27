@@ -12,12 +12,12 @@ class TopicoRequestMapper(
     private val usuarioService: UsuarioService
 ) : Mapper<TopicoRequest, Topico> {
 
-    override fun map(topico: TopicoRequest): Topico {
+    override fun map(t: TopicoRequest): Topico {
         return Topico(
-            titulo = topico.titulo,
-            mensagem = topico.mensagem,
-            curso = cursoService.buscarPorId(topico.idCurso),
-            autor = usuarioService.buscarPorId(topico.idAutor)
+            titulo = t.titulo,
+            mensagem = t.mensagem,
+            curso = cursoService.buscarPorId(t.idCurso),
+            autor = usuarioService.buscarPorId(t.idAutor)
         )
     }
 
